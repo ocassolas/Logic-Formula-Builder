@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construtor de Fórmulas Lógicas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-group label {
+            width: 50px;
+            font-weight: bold;
+        }
+
+        .input-group input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #e8e8e8;
+        }
+
+        button:active {
+            background-color: #d8d8d8;
+        }
+
+        .formula-display {
+            width: 100%;
+            min-height: 80px;
+            padding: 15px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            font-size: 18px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn-calculate {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            flex: 1;
+        }
+
+        .btn-calculate:hover {
+            background-color: #45a049;
+        }
+
+        .btn-clear {
+            background-color: #f44336;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-clear:hover {
+            background-color: #da190b;
+        }
+
+        .btn-backspace {
+            background-color: #ff9800;
+            color: white;
+            font-weight: bold;
+        }
+
+        .btn-backspace:hover {
+            background-color: #e68900;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+
+        .result.valid {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .result.invalid {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .result-text {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #e3f2fd;
+            border: 1px solid #90caf9;
+            border-radius: 5px;
+            font-size: 16px;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .btn-parens {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .btn-parens:hover {
+            background-color: #0b7dda;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Construtor de Fórmulas Lógicas</h1>
+
+        <!-- Área de entrada de proposições -->
+        <div class="section">
+            <div class="section-title">Área de Entrada de Proposições:</div>
+            <div class="input-group">
+                <label>P =</label>
+                <input type="text" id="propP" placeholder="Digite a proposição P">
+            </div>
+            <div class="input-group">
+                <label>Q =</label>
+                <input type="text" id="propQ" placeholder="Digite a proposição Q">
+            </div>
+            <div class="input-group">
+                <label>R =</label>
+                <input type="text" id="propR" placeholder="Digite a proposição R">
+            </div>
+            <div class="input-group">
+                <label>S =</label>
+                <input type="text" id="propS" placeholder="Digite a proposição S">
+            </div>
+        </div>
+
+        <!-- Botões de proposições -->
+        <div class="section">
+            <div class="section-title">Proposições:</div>
+            <div class="button-group">
+                <button onclick="addToFormula('P')">P</button>
+                <button onclick="addToFormula('Q')">Q</button>
+                <button onclick="addToFormula('R')">R</button>
+                <button onclick="addToFormula('S')">S</button>
+            </div>
+        </div>
+
+        <!-- Botões de conectivos lógicos -->
+        <div class="section">
+            <div class="section-title">Conectivos Lógicos:</div>
+            <div class="button-group">
+                <button onclick="addToFormula('~')">~ (Negação)</button>
+                <button onclick="addToFormula('∧')">∧ (E)</button>
+                <button onclick="addToFormula('∨')">∨ (OU)</button>
+                <button onclick="addToFormula('→')">→ (Condicional)</button>
+                <button onclick="addToFormula('↔')">↔ (Bicondicional)</button>
+                <button onclick="addToFormula('⊕')">⊕ (XOR)</button>
+                <button onclick="addToFormula('⊤')">⊤ (Verdadeiro)</button>
+                <button onclick="addToFormula('⊥')">⊥ (Falso)</button>
+                <button onclick="addToFormula('NAND')">NAND (Não-E)</button>
+                <button onclick="addToFormula('NOR')">NOR (Não-OU)</button>
+            </div>
+        </div>
+
+        <!-- Parênteses -->
+        <div class="section">
+            <div class="section-title">Parênteses:</div>
+            <div class="button-group">
+                <button class="btn-parens" onclick="addToFormula('(')">(</button>
+                <button class="btn-parens" onclick="addToFormula(')')">)</button>
+            </div>
+        </div>
+
+        <!-- Área de construção da fórmula -->
+        <div class="section">
+            <div class="section-title">Fórmula Construída:</div>
+            <textarea class="formula-display" id="formula" readonly></textarea>
+        </div>
+
+        <!-- Botões de ação -->
+        <div class="action-buttons">
+            <button class="btn-calculate" onclick="calculateFormula()">Calcular</button>
+            <button class="btn-backspace" onclick="backspace()">← Apagar</button>
+            <button class="btn-clear" onclick="clearFormula()">Limpar</button>
+        </div>
+
+        <!-- Resultado da validação -->
+        <div class="result" id="result"></div>
+
+        <!-- Resultado da tradução -->
+        <div class="result-text" id="resultText"></div>
+    </div>
+
+    <script>
+        function addToFormula(symbol) {
+            const formula = document.getElementById('formula');
+            formula.value += symbol;
+        }
+
+        function clearFormula() {
+            document.getElementById('formula').value = '';
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('resultText').style.display = 'none';
+        }
+
+        function backspace() {
+            const formula = document.getElementById('formula');
+            formula.value = formula.value.slice(0, -1);
+        }
+
+        function validateFormula(formula) {
+            // Remove espaços
+            formula = formula.replace(/\s/g, '');
+            
+            if (formula === '') return false;
+
+            // Tokens válidos
+            const validTokens = ['P', 'Q', 'R', 'S', '~', '∧', '∨', '→', '↔', '⊕', '⊤', '⊥', 'NAND', 'NOR', '(', ')'];
+            
+            // Verifica se todos os caracteres/tokens são válidos
+            let i = 0;
+            while (i < formula.length) {
+                let found = false;
+                for (let token of validTokens) {
+                    if (formula.substring(i, i + token.length) === token) {
+                        i += token.length;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) return false;
+            }
+
+            // Verifica balanceamento de parênteses
+            let balance = 0;
+            for (let char of formula) {
+                if (char === '(') balance++;
+                if (char === ')') balance--;
+                if (balance < 0) return false;
+            }
+            if (balance !== 0) return false;
+
+            // Tokeniza a fórmula
+            const tokens = [];
+            i = 0;
+            while (i < formula.length) {
+                for (let token of validTokens) {
+                    if (formula.substring(i, i + token.length) === token) {
+                        tokens.push(token);
+                        i += token.length;
+                        break;
+                    }
+                }
+            }
+
+            // Valida a sequência de tokens
+            const props = ['P', 'Q', 'R', 'S', '⊤', '⊥'];
+            const binaryOps = ['∧', '∨', '→', '↔', '⊕', 'NAND', 'NOR'];
+            const unaryOps = ['~'];
+
+            for (let i = 0; i < tokens.length; i++) {
+                const curr = tokens[i];
+                const prev = tokens[i - 1];
+                const next = tokens[i + 1];
+
+                // Proposição ou constante não pode vir depois de outra proposição/constante
+                if (props.includes(curr) && prev && props.includes(prev)) {
+                    return false;
+                }
+
+                // Operador binário precisa ter algo antes e depois
+                if (binaryOps.includes(curr)) {
+                    if (!prev || prev === '(' || binaryOps.includes(prev)) return false;
+                    if (!next || next === ')' || binaryOps.includes(next)) return false;
+                }
+
+                // Parêntese de fechamento não pode vir antes de algo que precisa de operando
+                if (curr === ')' && next && (props.includes(next) || next === '(')) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        function translateFormula(formula) {
+            const propP = document.getElementById('propP').value.trim();
+            const propQ = document.getElementById('propQ').value.trim();
+            const propR = document.getElementById('propR').value.trim();
+            const propS = document.getElementById('propS').value.trim();
+
+            // Remove espaços da fórmula
+            formula = formula.replace(/\s/g, '');
+
+            // Tokeniza a fórmula mantendo a ordem
+            const validTokens = ['NAND', 'NOR', 'P', 'Q', 'R', 'S', '~', '∧', '∨', '→', '↔', '⊕', '⊤', '⊥', '(', ')'];
+            const tokens = [];
+            let i = 0;
+            
+            while (i < formula.length) {
+                let found = false;
+                for (let token of validTokens) {
+                    if (formula.substring(i, i + token.length) === token) {
+                        tokens.push(token);
+                        i += token.length;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) i++;
+            }
+
+            // Função auxiliar para envolver proposições em parênteses quando necessário
+            function wrapProposition(text, needsParens) {
+                if (needsParens && !text.startsWith('(')) {
+                    return '(' + text + ')';
+                }
+                return text;
+            }
+
+            // Traduz os tokens com gramática natural
+            let result = '';
+            let parenDepth = 0;
+            
+            for (let i = 0; i < tokens.length; i++) {
+                const token = tokens[i];
+                const prevToken = tokens[i - 1];
+                const nextToken = tokens[i + 1];
+                
+                switch(token) {
+                    case 'P':
+                        result += propP || 'P';
+                        break;
+                    case 'Q':
+                        result += propQ || 'Q';
+                        break;
+                    case 'R':
+                        result += propR || 'R';
+                        break;
+                    case 'S':
+                        result += propS || 'S';
+                        break;
+                    case '~':
+                        // Se a próxima coisa é um parêntese, não adiciona espaço
+                        if (nextToken === '(') {
+                            result += 'não ';
+                        } else {
+                            result += 'não é verdade que ';
+                        }
+                        break;
+                    case '∧':
+                        result += ' e ';
+                        break;
+                    case '∨':
+                        result += ' ou ';
+                        break;
+                    case '→':
+                        result += ', então ';
+                        break;
+                    case '↔':
+                        result += ' se e somente se ';
+                        break;
+                    case '⊕':
+                        result += ' ou exclusivamente ';
+                        break;
+                    case '⊤':
+                        result += 'é sempre verdadeiro';
+                        break;
+                    case '⊥':
+                        result += 'é sempre falso';
+                        break;
+                    case 'NAND':
+                        result += ' não é verdade que ambos ';
+                        break;
+                    case 'NOR':
+                        result += ' nem ';
+                        break;
+                    case '(':
+                        parenDepth++;
+                        result += '(';
+                        break;
+                    case ')':
+                        parenDepth--;
+                        result += ')';
+                        break;
+                }
+            }
+
+            // Pós-processamento para melhorar a legibilidade
+            result = result.trim();
+            
+            // Adiciona "Se" no início para condicionais
+            if (formula.includes('→')) {
+                // Verifica se não começa com negação ou parêntese com negação
+                if (!result.startsWith('não') && !result.startsWith('(não')) {
+                    result = 'Se ' + result.charAt(0).toLowerCase() + result.slice(1);
+                }
+            }
+            
+            // Capitaliza a primeira letra
+            if (result.length > 0 && !result.startsWith('Se')) {
+                result = result.charAt(0).toUpperCase() + result.slice(1);
+            }
+            
+            // Remove espaços extras
+            result = result.replace(/\s+/g, ' ');
+            
+            // Adiciona ponto final
+            if (!result.endsWith('.')) {
+                result += '.';
+            }
+
+            return result;
+        }
+
+        function calculateFormula() {
+            const formula = document.getElementById('formula').value;
+            const resultDiv = document.getElementById('result');
+            const resultTextDiv = document.getElementById('resultText');
+
+            if (validateFormula(formula)) {
+                resultDiv.className = 'result valid';
+                resultDiv.textContent = 'Fórmula válida ✅';
+                resultDiv.style.display = 'block';
+
+                // Traduz a fórmula
+                const translation = translateFormula(formula);
+                resultTextDiv.innerHTML = '<strong>Tradução:</strong><br>' + translation;
+                resultTextDiv.style.display = 'block';
+            } else {
+                resultDiv.className = 'result invalid';
+                resultDiv.textContent = 'Fórmula inválida ❌';
+                resultDiv.style.display = 'block';
+                resultTextDiv.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
