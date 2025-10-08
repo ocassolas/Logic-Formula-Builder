@@ -8,7 +8,7 @@
   
   ### 📐 Construa e traduza fórmulas lógicas de forma intuitiva
   
-  [Demo ao Vivo](#) • [Reportar Bug](#) • [Solicitar Feature](#)
+  [Demo ao Vivo](#)
   
 </div>
 
@@ -16,16 +16,7 @@
 
 ## 📋 Sobre o Projeto
 
-Um construtor interativo de fórmulas lógicas proposicionais que permite criar, validar e traduzir automaticamente fórmulas para linguagem natural em português. Ideal para estudantes de lógica, matemática discreta e ciência da computação.
-
-### ✨ Funcionalidades
-
-- 🎯 **Interface Intuitiva** - Construa fórmulas clicando em botões
-- 📝 **Proposições Customizáveis** - Defina P, Q, R, S com suas próprias frases
-- ✅ **Validação Sintática** - Verificação automática de fórmulas válidas
-- 🔄 **Tradução Inteligente** - Converte fórmulas em português natural
-- 📱 **Design Responsivo** - Funciona perfeitamente em mobile e desktop
-- 🧩 **10 Conectivos Lógicos** - ~, ∧, ∨, →, ↔, ⊕, ⊤, ⊥, NAND, NOR
+Aplicação web interativa para criar e validar fórmulas lógicas proposicionais com tradução automática para linguagem natural em português. Permite definir proposições personalizadas (P, Q, R, S), construir fórmulas usando conectivos lógicos (~, ∧, ∨, →, ↔, ⊕, ⊤, ⊥, NAND, NOR), validar a sintaxe e converter automaticamente para frases gramaticalmente corretas. Exemplo: P="chove" + Q="a rua fica molhada" + fórmula "P → Q" = "Se chove, então a rua fica molhada."
 
 ---
 
