@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construtor de Fórmulas Lógicas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Construtor de Fórmulas Lógicas</h1>
+
+        <!-- Área de entrada de proposições -->
+        <div class="section">
+            <div class="section-title">Área de Entrada de Proposições:</div>
+            <div class="input-group">
+                <label>P =</label>
+                <input type="text" id="propP" placeholder="Digite a proposição P">
+            </div>
+            <div class="input-group">
+                <label>Q =</label>
+                <input type="text" id="propQ" placeholder="Digite a proposição Q">
+            </div>
+            <div class="input-group">
+                <label>R =</label>
+                <input type="text" id="propR" placeholder="Digite a proposição R">
+            </div>
+            <div class="input-group">
+                <label>S =</label>
+                <input type="text" id="propS" placeholder="Digite a proposição S">
+            </div>
+        </div>
+
+        <!-- Botões de proposições -->
+        <div class="section">
+            <div class="section-title">Proposições:</div>
+            <div class="button-group">
+                <button onclick="addToFormula('P')">P</button>
+                <button onclick="addToFormula('Q')">Q</button>
+                <button onclick="addToFormula('R')">R</button>
+                <button onclick="addToFormula('S')">S</button>
+            </div>
+        </div>
+
+        <!-- Botões de conectivos lógicos -->
+        <div class="section">
+            <div class="section-title">Conectivos Lógicos:</div>
+            <div class="button-group">
+                <button onclick="addToFormula('~')">~ (Negação)</button>
+                <button onclick="addToFormula('∧')">∧ (E)</button>
+                <button onclick="addToFormula('∨')">∨ (OU)</button>
+                <button onclick="addToFormula('→')">→ (Condicional)</button>
+                <button onclick="addToFormula('↔')">↔ (Bicondicional)</button>
+                <button onclick="addToFormula('⊕')">⊕ (XOR)</button>
+                <button onclick="addToFormula('⊤')">⊤ (Verdadeiro)</button>
+                <button onclick="addToFormula('⊥')">⊥ (Falso)</button>
+                <button onclick="addToFormula('NAND')">NAND (Não-E)</button>
+                <button onclick="addToFormula('NOR')">NOR (Não-OU)</button>
+            </div>
+        </div>
+
+        <!-- Parênteses -->
+        <div class="section">
+            <div class="section-title">Parênteses:</div>
+            <div class="button-group">
+                <button class="btn-parens" onclick="addToFormula('(')">(</button>
+                <button class="btn-parens" onclick="addToFormula(')')">)</button>
+            </div>
+        </div>
+
+        <!-- Área de construção da fórmula -->
+        <div class="section">
+            <div class="section-title">Fórmula Construída:</div>
+            <textarea class="formula-display" id="formula" readonly></textarea>
+        </div>
+
+        <!-- Botões de ação -->
+        <div class="action-buttons">
+            <button class="btn-calculate" onclick="calculateFormula()">Calcular</button>
+            <button class="btn-backspace" onclick="backspace()">← Apagar</button>
+            <button class="btn-clear" onclick="clearFormula()">Limpar</button>
+        </div>
+
+        <!-- Resultado da validação -->
+        <div class="result" id="result"></div>
+
+        <!-- Resultado da tradução -->
+        <div class="result-text" id="resultText"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
