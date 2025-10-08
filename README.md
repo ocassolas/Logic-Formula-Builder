@@ -1,4 +1,4 @@
-# 🧮 Logical Formulas Builder
+# Logical Formulas Builder
 
 <div align="center">
   
