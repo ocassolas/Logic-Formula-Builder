@@ -1,4 +1,4 @@
-# 🧮 Construtor de Fórmulas Lógicas
+# 🧮 Logical Formulas Builder
 
 <div align="center">
   
