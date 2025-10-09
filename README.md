@@ -8,7 +8,7 @@
   
   ### 📐 Construa e traduza fórmulas lógicas de forma intuitiva
   
-  [Demo ao Vivo](#)
+  [Demo ao Vivo](https://ocassolas.github.io/Logic-Formula-Builder/)
   
 </div>
 
